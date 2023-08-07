@@ -10,12 +10,14 @@ import java.util.logging.Logger;
 public class JksCreator {
     private final static Logger LOGGER = Logger.getLogger("utils.JksCreator");
 
-    public static void generateJKS(String certPath) throws GeneralSecurityException, IOException {
+    public static void generateJKS(String certPath1, String certPath2) throws GeneralSecurityException, IOException {
         KeyStore ks = KeyStore.getInstance("JKS");
         ks.load(null, null);
-        var cert = loadCertificate(new FileInputStream(certPath));//Carga el certificado de la ruta especificada, puede cargarse más de uno
+        var cert = loadCertificate(new FileInputStream(certPath1));//Carga el certificado de la ruta especificada, puede cargarse más de uno
+        var cert2 = loadCertificate(new FileInputStream(certPath2));//Carga el certificado de la ruta especificada, puede cargarse más de uno
         ks.setCertificateEntry("agente-cer-1", cert);//Agrega el certificado al keystore creado, puede agregarse más de uno
-        try (FileOutputStream fos = new FileOutputStream("certificado.jks")) { //Asigna nombre al archivo generado, este contendrá los certificados cargados y agregados
+        ks.setCertificateEntry("agente-cer-2", cert2);//Agrega el certificado al keystore creado, puede agregarse más de uno
+        try (FileOutputStream fos = new FileOutputStream("almacen.jks")) { //Asigna nombre al archivo generado, este contendrá los certificados cargados y agregados
             ks.store(fos, "".toCharArray()); //Genera el archivo jks y asigna una contraseña
             LOGGER.log(Level.INFO, Estatus.JKS_GENERADO.getMensaje());
         }catch (Exception e){
