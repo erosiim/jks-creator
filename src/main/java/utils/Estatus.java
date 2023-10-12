@@ -2,8 +2,8 @@ package utils;
 
 public enum Estatus {
 
-    JKS_GENERADO("JKS generado satisfactoriamente"),
-    JKS_ERROR("Error al generar JKS");
+    JKS_GENERADO("Almacén JKS generado satisfactoriamente"),
+    JKS_ERROR("Error al generar almacén JKS");
 
     private String mensaje;
 
